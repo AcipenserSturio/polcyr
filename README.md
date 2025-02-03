@@ -2,11 +2,17 @@
 
 A Polish Cyrillic orthography that aims for lossless conversion and etymological accuracy.
 
-Currently achieves 99.5% losslessness on a Polish dictionary (4 mil words). (Starts failing on borrowings.)
+Currently achieves 99.5% losslessness on a Polish dictionary (4 mil words).
+
+* The count excludes words containing \<q w x>, which always have to be lossy.
+
+* 0.5% includes a variety of fail conditions I intend to work on.
 
 ## Orthography
 
 ### Some design features
+
+* 34 letters: Аа Бб Вв Гг Ғғ Дд Ее Єє Жж Зз Ии Іі Ӥӥ Јј Кк Лл Мм Нн Оо Пп Рр Сс Тт Уу У́у́ Фф Хх Цц Чч Шш Ьь Юю Яя Я́я́.
 
 * <у я> are used exclusively for nasal vowels, whereas /u ja/ are <оу іа>.
 
