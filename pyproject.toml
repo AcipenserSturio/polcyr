@@ -1,0 +1,15 @@
+[project]
+name = "polcyr"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "AcipenserSturio", email = "AcipenserSturio@users.noreply.github.com"},
+]
+dependencies = ["tqdm>=4.67.1", "requests>=2.32.3", "pandas>=2.2.3"]
+requires-python = ">=3.13"
+readme = "README.md"
+license = {text = "GPL-3.0-or-later"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
