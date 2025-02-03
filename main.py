@@ -116,11 +116,18 @@ def encode(w):
     # 11. Finally, let's use cyrillic consonants:
     for lat, cyr in alphabet.items():
         w = w.replace(lat, cyr)
+
+    # 12. Add щ for шч
+    w = w.replace("шч", "щ")
+
     return w
 
 
 # converts polish cyrillic to latin
 def decode(w):
+    # 12. Remove щ for шч
+    w = w.replace("щ", "шч")
+
     # 11. First, let's use latin consonants:
     for lat, cyr in alphabet.items():
         w = w.replace(cyr, lat)
@@ -224,7 +231,7 @@ def test():
         dictionary = f.read().split("\n")
         dictionary = [item for index, item
                       in enumerate(dictionary) if
-                      # index % 50 == 0 and
+                      index % 50 == 0 and
                       "v" not in item
                       and "x" not in item
                       and "q" not in item
@@ -245,8 +252,6 @@ def test():
     """)
 
 if __name__ == "__main__":
-    # test()
-    a = convert("""wyprzedzić""")
-    print(a)
-
-
+    test()
+    # a = convert("""wyprzedzić""")
+    # print(a)

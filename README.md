@@ -12,7 +12,7 @@ Currently achieves 99.5% losslessness on a Polish dictionary (4 mil words).
 
 ### Some design features
 
-* 34 letters: Аа Бб Вв Гг Ғғ Дд Ее Єє Жж Зз Ии Іі Ӥӥ Јј Кк Лл Мм Нн Оо Пп Рр Сс Тт Уу У́у́ Фф Хх Цц Чч Шш Ьь Юю Яя Я́я́.
+* 34 letters: Аа Бб Вв Гг Ғғ Дд Ее Єє Жж Зз Ии Іі Ӥӥ Јј Кк Лл Мм Нн Оо Пп Рр Сс Тт Уу У́у́ Фф Хх Цц Чч Шш Щщ Ьь Юю Яя Я́я́.
 
 * <у я> are used exclusively for nasal vowels, whereas /u ja/ are <оу іа>.
 
