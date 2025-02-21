@@ -12,9 +12,11 @@ Currently achieves 99.92% losslessness on a Polish dictionary (4 mil words).
 
 ### Some design features
 
-* 34 letters: Аа Бб Вв Гг Ғғ Дд Ее Єє Жж Зз Ии Іі Її Јј Кк Лл Мм Нн Оо Пп Рр Сс Тт Уу У́у́ Фф Хх Цц Чч Шш Щщ Ьь Юю Яя Я́я́.
+* 35 letters: Аа Бб Вв Гг Ғғ Дд Ее Єє Жж Зз Ии Іі Її Јј Кк Лл Мм Нн Оо Пп Рр Сс Тт Уу У́у́ Фф Хх Цц Чч Шш Щщ Ьь Юю Яя Я́я́.
 
-* <у я> are used exclusively for nasal vowels, whereas /u ja/ are <оу іа>.
+* /u ja/ are usually <оу іа>; <у я> are used for nasal vowels.
+
+  * (<у я> are used for /u ja/ in environments where nasal vowels never occur: <у> word initially and in diphthongs, <я> after a vowel.)
 
 * Ukrainian-style <і и>.
 

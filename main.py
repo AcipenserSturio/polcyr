@@ -138,11 +138,18 @@ def encode(w):
     # оу thats part of an e- diphthong -> у
     w = re.sub(r"((?<=^)|(?<=[ае]))оу(?!\u0301)", "у", w)
 
+    # 14. Shorten іа before vowels to я
+    w = re.sub(r"(?<=[іиєеяаоую\u0301])іа", "я", w)
+
     return w
 
 
 # converts polish cyrillic to latin
 def decode(w):
+
+    # 14. я before vowels is actually іа
+    w = re.sub(r"(?<=[іиєеяаоую\u0301])я", "іа", w)
+
     # 13. Word initial у,
     # у thats part of a diphthong -> оу
     w = re.sub(r"((?<=^)|(?<=[ае]))у(?!\u0301)", "оу", w)
@@ -278,7 +285,7 @@ def test():
         dictionary = f.read().split("\n")
         dictionary = [item for index, item
                       in enumerate(dictionary) if
-                      # index % 50 == 0 and
+                      index % 50 == 0 and
                       "v" not in item
                       and "x" not in item
                       and "q" not in item
