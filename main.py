@@ -92,6 +92,12 @@ def encode(w):
     # for ease of vowel representation.
     w = re.sub(r"^j", "ь", w)
 
+    # 9.4. For e vs ie:
+    # add softness for all "pairless" consonants
+    # don't need to do k g because Polish already has
+    # todo: dz
+    w = re.sub(r"(?<=[čšžchɣ])(?=[e])", "ь", w)
+
     # 9.5. When sibilants are followed by a nasal vowel,
     # treat the sibilant as soft.
     w = re.sub(r"(?<=[čšž])(?=[ęą])", "ь", w)
@@ -107,7 +113,7 @@ def encode(w):
     w = w.replace("ьy", "і")
 
     w = w.replace("a", "а")
-    w = w.replace("e", "э")
+    w = w.replace("e", "ѐ")
     w = w.replace("u", "оу")
     w = w.replace("o", "о")
     w = w.replace("ó", "о́")
@@ -125,11 +131,17 @@ def encode(w):
     # 12. Add щ for шч
     w = w.replace("шч", "щ")
 
+    # 13. Word initial оу -> у
+    w = re.sub(r"^оу", "у", w)
+
     return w
 
 
 # converts polish cyrillic to latin
 def decode(w):
+    # 13. Word initial у -> оу
+    w = re.sub(r"^у", "оу", w)
+
     # 12. Remove щ for шч
     w = w.replace("щ", "шч")
 
@@ -151,13 +163,19 @@ def decode(w):
     w = w.replace("о́", "ó")
     w = w.replace("у́", "ą")  # digraphs have to go first
     w = w.replace("а", "a")
-    w = w.replace("э", "e")
+    w = w.replace("ѐ", "e")
     w = w.replace("о", "o")
     w = w.replace("у", "ę")
     w = w.replace("и", "y")
 
     # 9.5. Remove softness from sibilants before nasal vowels.
     w = re.sub(r"(?<=[čšž])ь(?=[ęą])", "", w)
+
+    # 9.4. For e vs ie:
+    # remove softness for all "pairless" consonants
+    # don't need to do k g because Polish already has
+    # todo: dz
+    w = re.sub(r"(?<=[čšžchɣ])ь(?=[e])", "", w)
 
     # 9. Word-initial ь is j:
     w = re.sub(r"^ь", "j", w)
@@ -261,10 +279,11 @@ def test():
     """)
 
 if __name__ == "__main__":
-    test()
-#     a = convert("""
-#
-# Starożytny Rzym – cywilizacja rozwijająca się w basenie Morza Śródziemnego i części Europy. Jej kolebką było miasto i późniejsza stolica: Rzym leżące w Italii, które w pewnym momencie swoich dziejów rozpoczęło ekspansję, rozszerzając swoje panowanie na znaczne obszary i wchłaniając m.in. kulturę starożytnej Grecji. Cywilizacja rzymska, nazywana też niekiedy grecko-rzymską, razem z pochodzącą z Bliskiego Wschodu religią – chrześcijaństwem, stworzyła podstawy późniejszej cywilizacji europejskiej. Miasto Rzym zaczęło kształtować się w VIII wieku p.n.e., natomiast kres stworzonego przez nie państwa nastąpił formalnie w 1453 roku n.e. (wraz z upadkiem Konstantynopola i tym samym Cesarstwa Bizantyńskiego), choć dosyć często jako koniec starożytnego Rzymu przyjmuje się rok 476 n.e., w którym upadło cesarstwo zachodniorzymskie.
-#
-# """)
-    # print(a)
+    # test()
+    a = convert("""
+
+– miasto na prawach powiatu w środkowej Polsce. Większość dzisiejszej Łodzi znajduje się w historycznej ziemi łęczyckiej, a niewielka część miasta (na lewym brzegu Neru) w ziemi sieradzkiej. Siedziba władz województwa łódzkiego, powiatu łódzkiego wschodniego oraz gminy Nowosolna, przejściowa siedziba władz państwowych w 1945 roku[7].
+
+Ośrodek akademicki (19 uczelni[8]), kulturalny i przemysłowy. Przed przemianami polityczno-gospodarczymi w 1989 r. centrum przemysłu włókienniczego i filmowego.
+""")
+    print(a)
