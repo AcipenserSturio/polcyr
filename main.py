@@ -39,6 +39,13 @@ alphabet = {
 
 # converts polish latin to cyrillic
 def encode(w):
+
+    # 0. Unusual combinations sometimes occur at morpheme boundaries,
+    # particularly with pół-i, try-a, przy-a.
+    # Let's use a hyphen in Cyrillic.
+    w = re.sub(r"(?<=pół)(?=i)", "-", w)
+    w = re.sub(r"(?<=rzy)(?=a)", "-", w)
+
     # 1. to avoid wrong matches, let us convert digraph consonants
     # to a less error-prone view:
     w = re.sub(r"(?<!c)h", "ɣ", w)
@@ -78,9 +85,10 @@ def encode(w):
     w = w.replace("cь", "tь")
     w = w.replace("dzь", "dь")
 
-    # 8. *sv *zv *st *zd was palatalised in its entirety,
+    # 8. *sv *st *zd was palatalised in its entirety,
     # so lets remove the redundant ь.
-    w = re.sub(r"(?<=[sz])ь(?=wь)", "", w)
+    w = re.sub(r"(?<=s)ь(?=wь)", "", w)
+    # w = re.sub(r"(?<=z)ь(?=wь)", "", w)
     w = re.sub(r"(?<=s)ь(?=tь)", "", w)
     # w = re.sub(r"(?<=z)ь(?=dь)", "", w)
 
@@ -152,6 +160,8 @@ def decode(w):
         w = w.replace(cyr, lat)
 
     # 10. De-cyrillicise the vowels:
+    w = w.replace("оу", "u")  # avoid misinterpretations with io
+
     w = w.replace("іо́", "ьó")  # trigraph
     w = w.replace("іа", "ьa")
     w = w.replace("іо", "ьo")
@@ -161,7 +171,6 @@ def decode(w):
     w = w.replace("я", "ьę")
     w = w.replace("і", "ьy")
 
-    w = w.replace("оу", "u")
     w = w.replace("о́", "ó")
     w = w.replace("у́", "ą")  # digraphs have to go first
     w = w.replace("а", "a")
@@ -183,7 +192,8 @@ def decode(w):
     w = re.sub(r"^ь", "j", w)
 
     # 8. Re-insert implicit palatalisation:
-    w = re.sub(r"(?<=[sz])(?=wь)", "ь", w)
+    w = re.sub(r"(?<=s)(?=wь)", "ь", w)
+    # w = re.sub(r"(?<=z)(?=wь)", "ь", w)
     w = re.sub(r"(?<=s)(?=tь)", "ь", w)
     # w = re.sub(r"(?<=z)(?=dь)", "ь", w)
 
@@ -222,6 +232,9 @@ def decode(w):
     w = w.replace("ž", "ż")  # just for letter consistency
     w = w.replace("ř", "rz")
 
+    # 0. Remove morpheme boundary hyphens.
+    w = re.sub(r"(?<=pół)-(?=i)", "", w)
+    w = re.sub(r"(?<=rzy)-(?=a)", "", w)
     return w
 
 
