@@ -58,7 +58,8 @@ def encode(w):
     w = w.replace("i", "ь")
 
     # 4. Intervocalic j will also be represented by the "soft" vowel series.
-    w = re.sub(r"(?<=[aeoóuyąę])j(?=[aeoóuyąę])", "ь", w)
+    # But not before nasal vowels - they will always be "hard".
+    w = re.sub(r"(?<=[aeoóuyąę])j(?=[aeoóuy])", "ь", w)
 
     # 5. While we are at it, split apart the palatalisation
     # from acute consonants.
@@ -91,9 +92,13 @@ def encode(w):
     # for ease of vowel representation.
     w = re.sub(r"^j", "ь", w)
 
+    # 9.5. When sibilants are followed by a nasal vowel,
+    # treat the sibilant as soft.
+    w = re.sub(r"(?<=[čšž])(?=[ęą])", "ь", w)
+
     # 10. Now, let's cyrillicise the vowels:
     w = w.replace("ьa", "іа")
-    w = w.replace("ьe", "є")
+    w = w.replace("ьe", "е")
     w = w.replace("ьo", "іо")
     w = w.replace("ьu", "ю")
     w = w.replace("ьó", "іо́")
@@ -102,7 +107,7 @@ def encode(w):
     w = w.replace("ьy", "і")
 
     w = w.replace("a", "а")
-    w = w.replace("e", "е")
+    w = w.replace("e", "э")
     w = w.replace("u", "оу")
     w = w.replace("o", "о")
     w = w.replace("ó", "о́")
@@ -137,7 +142,7 @@ def decode(w):
     w = w.replace("іа", "ьa")
     w = w.replace("іо", "ьo")
     w = w.replace("я́", "ьą")  # digraphs have to go first
-    w = w.replace("є", "ьe")
+    w = w.replace("е", "ьe")
     w = w.replace("ю", "ьu")
     w = w.replace("я", "ьę")
     w = w.replace("і", "ьy")
@@ -146,10 +151,13 @@ def decode(w):
     w = w.replace("о́", "ó")
     w = w.replace("у́", "ą")  # digraphs have to go first
     w = w.replace("а", "a")
-    w = w.replace("е", "e")
+    w = w.replace("э", "e")
     w = w.replace("о", "o")
     w = w.replace("у", "ę")
     w = w.replace("и", "y")
+
+    # 9.5. Remove softness from sibilants before nasal vowels.
+    w = re.sub(r"(?<=[čšž])ь(?=[ęą])", "", w)
 
     # 9. Word-initial ь is j:
     w = re.sub(r"^ь", "j", w)
@@ -175,8 +183,9 @@ def decode(w):
     w = re.sub(r"sь(?![aeoóuyąę])", "ś", w)
     w = re.sub(r"zь(?![aeoóuyąę])", "ź", w)
 
-    # 4. Bring back j intervocalically:
-    w = re.sub(r"(?<=[aeoóuyąę])ь(?=[aeoóuyąę])", "j", w)
+    # 4. Bring back j intervocalically
+    # except before nasal vowels, where it is already there:
+    w = re.sub(r"(?<=[aeoóuyąę])ь(?=[aeoóuy])", "j", w)
 
     # 3. Re-establish ь -> i
     w = re.sub("ьy?", "i", w)
@@ -253,5 +262,9 @@ def test():
 
 if __name__ == "__main__":
     test()
-    # a = convert("""wyprzedzić""")
+#     a = convert("""
+#
+# Starożytny Rzym – cywilizacja rozwijająca się w basenie Morza Śródziemnego i części Europy. Jej kolebką było miasto i późniejsza stolica: Rzym leżące w Italii, które w pewnym momencie swoich dziejów rozpoczęło ekspansję, rozszerzając swoje panowanie na znaczne obszary i wchłaniając m.in. kulturę starożytnej Grecji. Cywilizacja rzymska, nazywana też niekiedy grecko-rzymską, razem z pochodzącą z Bliskiego Wschodu religią – chrześcijaństwem, stworzyła podstawy późniejszej cywilizacji europejskiej. Miasto Rzym zaczęło kształtować się w VIII wieku p.n.e., natomiast kres stworzonego przez nie państwa nastąpił formalnie w 1453 roku n.e. (wraz z upadkiem Konstantynopola i tym samym Cesarstwa Bizantyńskiego), choć dosyć często jako koniec starożytnego Rzymu przyjmuje się rok 476 n.e., w którym upadło cesarstwo zachodniorzymskie.
+#
+# """)
     # print(a)
