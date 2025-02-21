@@ -55,7 +55,11 @@ def encode(w):
     w = w.replace("ż", "ž")  # just for letter consistency
     w = re.sub("rz(?!i)", "ř", w)  # exclude rzi: its actually r-zi
 
-    # 2. some <i> in Polish is borrowed, and doesn't trigger palatalisation.
+    # 2. Sequences of type "dia, tia, ria"
+    # are treated as underlying "dyja, tyja, ryja".
+    w = re.sub(r"(?<=[dtr])i(?=[aeioóuyąę])", "yj", w)
+
+    # 2.1. some <i> in Polish is borrowed, and doesn't trigger palatalisation.
     # This is an Udmurt letter lol sorry
     w = re.sub("(?<=[dtr])i", "ӥ", w)
     w = re.sub("(?<=l)i(?=[aeioóuyąę])", "ӥ", w)
@@ -221,8 +225,12 @@ def decode(w):
     w = re.sub("ьy?", "i", w)
     w = re.sub("jy", "i", w)  # after a vowel!
 
-    # 2. Re-interpret non-palatalising i:
+    # 2.1. Re-interpret non-palatalising i:
     w = w.replace("ӥ", "i")
+
+    # 2. Sequences of underlying type "dyja, tyja, ryja"
+    # are treated as "dia, tia, ria".
+    w = re.sub(r"(?<=[dtr])yj(?=[aeioóuyąę])", "i", w)
 
     # 1. Replace Czech letters with Polish digraphs
     w = w.replace("h", "ch")
