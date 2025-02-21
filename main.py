@@ -218,10 +218,10 @@ def decode(w):
     w = w.replace("rь", "ř")
 
     # 5. When not followed by a vowel, use diacritic for soft consonants:
-    w = re.sub(r"cь(?![aeoóuyąę])", "ć", w)
-    w = re.sub(r"nь(?![aeoóuyąę])", "ń", w)
-    w = re.sub(r"sь(?![aeoóuyąę])", "ś", w)
-    w = re.sub(r"zь(?![aeoóuyąę])", "ź", w)
+    w = re.sub(r"cь(?![aeoóuyąę]|ьy)", "ć", w)
+    w = re.sub(r"nь(?![aeoóuyąę]|ьy)", "ń", w)
+    w = re.sub(r"sь(?![aeoóuyąę]|ьy)", "ś", w)
+    w = re.sub(r"zь(?![aeoóuyąę]|ьy)", "ź", w)
 
     # 4. Bring back j intervocalically
     # except before nasal vowels, where it is already there:
