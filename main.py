@@ -96,7 +96,7 @@ def encode(w):
     # add softness for all "pairless" consonants
     # don't need to do k g because Polish already has
     # todo: dz
-    w = re.sub(r"(?<=[čšžchɣ])(?=[e])", "ь", w)
+    # w = re.sub(r"(?<=[čšžchɣ])(?=[e])", "ь", w)
 
     # 9.5. When sibilants are followed by a nasal vowel,
     # treat the sibilant as soft.
@@ -104,7 +104,7 @@ def encode(w):
 
     # 10. Now, let's cyrillicise the vowels:
     w = w.replace("ьa", "іа")
-    w = w.replace("ьe", "е")
+    w = w.replace("ьe", "є")
     w = w.replace("ьo", "іо")
     w = w.replace("ьu", "ю")
     w = w.replace("ьó", "іо́")
@@ -113,7 +113,7 @@ def encode(w):
     w = w.replace("ьy", "і")
 
     w = w.replace("a", "а")
-    w = w.replace("e", "ѐ")
+    w = w.replace("e", "е")
     w = w.replace("u", "оу")
     w = w.replace("o", "о")
     w = w.replace("ó", "о́")
@@ -154,7 +154,7 @@ def decode(w):
     w = w.replace("іа", "ьa")
     w = w.replace("іо", "ьo")
     w = w.replace("я́", "ьą")  # digraphs have to go first
-    w = w.replace("е", "ьe")
+    w = w.replace("є", "ьe")
     w = w.replace("ю", "ьu")
     w = w.replace("я", "ьę")
     w = w.replace("і", "ьy")
@@ -163,7 +163,7 @@ def decode(w):
     w = w.replace("о́", "ó")
     w = w.replace("у́", "ą")  # digraphs have to go first
     w = w.replace("а", "a")
-    w = w.replace("ѐ", "e")
+    w = w.replace("е", "e")
     w = w.replace("о", "o")
     w = w.replace("у", "ę")
     w = w.replace("и", "y")
@@ -175,7 +175,7 @@ def decode(w):
     # remove softness for all "pairless" consonants
     # don't need to do k g because Polish already has
     # todo: dz
-    w = re.sub(r"(?<=[čšžchɣ])ь(?=[e])", "", w)
+    # w = re.sub(r"(?<=[čšžchɣ])ь(?=[e])", "", w)
 
     # 9. Word-initial ь is j:
     w = re.sub(r"^ь", "j", w)
@@ -279,11 +279,8 @@ def test():
     """)
 
 if __name__ == "__main__":
-    # test()
-    a = convert("""
-
-– miasto na prawach powiatu w środkowej Polsce. Większość dzisiejszej Łodzi znajduje się w historycznej ziemi łęczyckiej, a niewielka część miasta (na lewym brzegu Neru) w ziemi sieradzkiej. Siedziba władz województwa łódzkiego, powiatu łódzkiego wschodniego oraz gminy Nowosolna, przejściowa siedziba władz państwowych w 1945 roku[7].
-
-Ośrodek akademicki (19 uczelni[8]), kulturalny i przemysłowy. Przed przemianami polityczno-gospodarczymi w 1989 r. centrum przemysłu włókienniczego i filmowego.
-""")
-    print(a)
+    test()
+#     a = convert("""
+# Pangram (gr. pan gramma – każda litera) – krótkie zdanie zawierające wszystkie litery danego języka. Może stanowić zabawę słowną, często jest jednak również wykorzystywane do sprawdzania poprawności danych tekstowych, poprawności wyświetlania lub drukowania znaków itp. Szczególnie dopracowane pangramy zawierają każdą literę tylko w jednym wystąpieniu.
+# """)
+#     print(a)
