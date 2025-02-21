@@ -301,14 +301,21 @@ def test():
 
 def convert_example():
     a = convert("""
-Pangram (gr. pan gramma – każda litera) – krótkie zdanie zawierające wszystkie litery danego języka. Może stanowić zabawę słowną, często jest jednak również wykorzystywane do sprawdzania poprawności danych tekstowych, poprawności wyświetlania lub drukowania znaków itp. Szczególnie dopracowane pangramy zawierają każdą literę tylko w jednym wystąpieniu.""")
+Pangram (gr. pan gramma – każda litera) – krótkie zdanie zawierające wszystkie litery danego języka. Może stanowić zabawę słowną, często jest jednak również wykorzystywane do sprawdzania poprawności danych tekstowych, poprawności wyświetlania lub drukowania znaków itp. Szczególnie dopracowane pangramy zawierają każdą literę tylko w jednym wystąpieniu.
+    """)
     print(a)
+    print()
     b = convert("""
 Łódź – miasto na prawach powiatu w środkowej Polsce. Większość dzisiejszej Łodzi znajduje się w historycznej ziemi łęczyckiej, a niewielka część miasta (na lewym brzegu Neru) w ziemi sieradzkiej. Siedziba władz województwa łódzkiego, powiatu łódzkiego wschodniego oraz gminy Nowosolna, przejściowa siedziba władz państwowych w 1945 roku. Ośrodek akademicki (19 uczelni), kulturalny i przemysłowy. Przed przemianami polityczno-gospodarczymi w 1989 r. centrum przemysłu włókienniczego i filmowego.
-""")
+    """)
     print(b)
+    print()
+    c = convert("""
+Znaki diakrytyczne, diakrytyki (stgr. διακριτικός „odróżniający”) – znaki graficzne używane w alfabetach i innych systemach pisma, umieszczane nad, pod literą, obok lub wewnątrz niej, zmieniające sposób odczytu tej litery i tworzące przez to nową literę. W alfabetach sylabowych mogą zmienić znaczenie całej sylaby.
+    """)
+    print(c)
 
 
 if __name__ == "__main__":
-    test()
-    # convert_example()
+    # test()
+    convert_example()
