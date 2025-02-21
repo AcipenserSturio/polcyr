@@ -131,16 +131,18 @@ def encode(w):
     # 12. Add щ for шч
     w = w.replace("шч", "щ")
 
-    # 13. Word initial оу -> у
-    w = re.sub(r"^оу", "у", w)
+    # 13. Word initial оу,
+    # оу thats part of an e- diphthong -> у
+    w = re.sub(r"((?<=^)|(?<=[ае]))оу", "у", w)
 
     return w
 
 
 # converts polish cyrillic to latin
 def decode(w):
-    # 13. Word initial у -> оу
-    w = re.sub(r"^у", "оу", w)
+    # 13. Word initial у,
+    # у thats part of a diphthong -> оу
+    w = re.sub(r"((?<=^)|(?<=[ае]))у", "оу", w)
 
     # 12. Remove щ for шч
     w = w.replace("щ", "шч")
