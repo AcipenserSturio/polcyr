@@ -12,7 +12,7 @@ Currently achieves 99.5% losslessness on a Polish dictionary (4 mil words).
 
 ### Some design features
 
-* 34 letters: Аа Бб Вв Гг Ғғ Дд Ее Єє Жж Зз Ии Іі Ӥӥ Јј Кк Лл Мм Нн Оо Пп Рр Сс Тт Уу У́у́ Фф Хх Цц Чч Шш Щщ Ьь Юю Яя Я́я́.
+* 34 letters: Аа Бб Вв Гг Ғғ Дд Ее Єє Жж Зз Ии Іі Її Јј Кк Лл Мм Нн Оо Пп Рр Сс Тт Уу У́у́ Фф Хх Цц Чч Шш Щщ Ьь Юю Яя Я́я́.
 
 * <у я> are used exclusively for nasal vowels, whereas /u ja/ are <оу іа>.
 
@@ -21,6 +21,8 @@ Currently achieves 99.5% losslessness on a Polish dictionary (4 mil words).
 * Etymological <ть дь ль рь> for <ć dź l rz>.
 
 * With small modifications, becomes compatible with Ukrainian keyboards.
+
+* <ї>, unlike its use in Ukrainian, is used as a non-palatalising /i/ in /ri di ti/, mostly in borrowings and morpheme boundaries.
 
 ### Examples
 

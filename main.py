@@ -66,8 +66,9 @@ def encode(w):
     w = re.sub(r"li(?=[aeioóuyąę])", "łyj", w)
 
     # 2.1. some <i> in Polish is borrowed, and doesn't trigger palatalisation.
-    # This is an Udmurt letter lol sorry
-    w = re.sub("(?<=[dtr])i", "ӥ", w)
+    # We will mark the non-palatalisation with a diaeresis.
+    # Unfortunately, this looks like <ji> to a Ukrainian speaker.
+    w = re.sub("(?<=[dtr])i", "ї", w)
 
     # 3. <i> is ь with vowels, and ьy /ʲɨ/ elsewhere
     w = re.sub("i(?![aeioóuyąę])", "ьy", w)
@@ -231,7 +232,7 @@ def decode(w):
     w = re.sub("jy", "i", w)  # after a vowel!
 
     # 2.1. Re-interpret non-palatalising i:
-    w = w.replace("ӥ", "i")
+    w = w.replace("ї", "i")
 
     # 2. Sequences of underlying type "dyja, tyja, ryja"
     # are treated as "dia, tia, ria".
@@ -312,9 +313,17 @@ def test():
     Correct percentage: {100*len(df[df["correct"]]) / len(df):.2f}%
     """)
 
+
+def convert_example():
+    a = convert("""
+Pangram (gr. pan gramma – każda litera) – krótkie zdanie zawierające wszystkie litery danego języka. Może stanowić zabawę słowną, często jest jednak również wykorzystywane do sprawdzania poprawności danych tekstowych, poprawności wyświetlania lub drukowania znaków itp. Szczególnie dopracowane pangramy zawierają każdą literę tylko w jednym wystąpieniu.""")
+    print(a)
+    b = convert("""
+Łódź – miasto na prawach powiatu w środkowej Polsce. Większość dzisiejszej Łodzi znajduje się w historycznej ziemi łęczyckiej, a niewielka część miasta (na lewym brzegu Neru) w ziemi sieradzkiej. Siedziba władz województwa łódzkiego, powiatu łódzkiego wschodniego oraz gminy Nowosolna, przejściowa siedziba władz państwowych w 1945 roku. Ośrodek akademicki (19 uczelni), kulturalny i przemysłowy. Przed przemianami polityczno-gospodarczymi w 1989 r. centrum przemysłu włókienniczego i filmowego.
+""")
+    print(b)
+
+
 if __name__ == "__main__":
     test()
-#     a = convert("""
-# Pangram (gr. pan gramma – każda litera) – krótkie zdanie zawierające wszystkie litery danego języka. Może stanowić zabawę słowną, często jest jednak również wykorzystywane do sprawdzania poprawności danych tekstowych, poprawności wyświetlania lub drukowania znaków itp. Szczególnie dopracowane pangramy zawierają każdą literę tylko w jednym wystąpieniu.
-# """)
-#     print(a)
+    # convert_example()
