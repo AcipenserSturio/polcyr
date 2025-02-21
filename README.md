@@ -2,11 +2,11 @@
 
 A Polish Cyrillic orthography that aims for lossless conversion and etymological accuracy.
 
-Currently achieves 99.5% losslessness on a Polish dictionary (4 mil words).
+Currently achieves 99.92% losslessness on a Polish dictionary (4 mil words).
 
 * The count excludes words containing \<q w x>, which always have to be lossy.
 
-* 0.5% includes a variety of fail conditions I intend to work on.
+* 0.08% includes a variety of fail conditions, mostly related to borrowings.
 
 ## Orthography
 

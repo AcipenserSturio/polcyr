@@ -136,7 +136,7 @@ def encode(w):
 
     # 13. Word initial оу,
     # оу thats part of an e- diphthong -> у
-    w = re.sub(r"((?<=^)|(?<=[ае]))оу", "у", w)
+    w = re.sub(r"((?<=^)|(?<=[ае]))оу(?!\u0301)", "у", w)
 
     return w
 
@@ -145,7 +145,7 @@ def encode(w):
 def decode(w):
     # 13. Word initial у,
     # у thats part of a diphthong -> оу
-    w = re.sub(r"((?<=^)|(?<=[ае]))у", "оу", w)
+    w = re.sub(r"((?<=^)|(?<=[ае]))у(?!\u0301)", "оу", w)
 
     # 12. Remove щ for шч
     w = w.replace("щ", "шч")
@@ -155,7 +155,7 @@ def decode(w):
         w = w.replace(cyr, lat)
 
     # 10. De-cyrillicise the vowels:
-    w = w.replace("оу", "u")  # avoid misinterpretations with io
+    w = re.sub(r"оу(?!\u0301)", "u", w)  # avoid misinterpretations with io, ą
 
     w = w.replace("іо́", "ьó")  # trigraph
     w = w.replace("іа", "ьa")
@@ -278,7 +278,7 @@ def test():
         dictionary = f.read().split("\n")
         dictionary = [item for index, item
                       in enumerate(dictionary) if
-                      index % 50 == 0 and
+                      # index % 50 == 0 and
                       "v" not in item
                       and "x" not in item
                       and "q" not in item
