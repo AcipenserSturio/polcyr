@@ -43,13 +43,13 @@ def encode(w):
     # 0. Unusual combinations sometimes occur at morpheme boundaries,
     # particularly with pół-i, try-a, przy-a.
     # Let's use a hyphen in Cyrillic.
+    w = re.sub(r"(?<=pół)(?=i)", "-", w)
+    w = re.sub(r"(?<=rzy)(?=[ao])", "-", w)
     # w = re.sub(r"(?<=^od)(?=i)", "-", w)
-    # w = re.sub(r"(?<=^pół)(?=i)", "-", w)
     # w = re.sub(r"(?<=^pod)(?=i)", "-", w)
     # w = re.sub(r"(?<=^nad)(?=i)", "-", w)
     # w = re.sub(r"(?<=^post)(?=i)", "-", w)
     # w = re.sub(r"(?<=^przed)(?=i)", "-", w)
-    # w = re.sub(r"(?<=^rzy)(?=a)", "-", w)
 
     # 1. to avoid wrong matches, let us convert digraph consonants
     # to a less error-prone view:
@@ -248,13 +248,13 @@ def decode(w):
     w = w.replace("ř", "rz")
 
     # 0. Remove morpheme boundary hyphens.
+    w = re.sub(r"(?<=pół)-(?=i)", "", w)
+    w = re.sub(r"(?<=rzy)-(?=[ao])", "", w)
     # w = re.sub(r"(?<=^od)-(?=i)", "", w)
-    # w = re.sub(r"(?<=^pół)-(?=i)", "", w)
     # w = re.sub(r"(?<=^pod)-(?=i)", "", w)
     # w = re.sub(r"(?<=^nad)-(?=i)", "", w)
     # w = re.sub(r"(?<=^post)-(?=i)", "", w)
     # w = re.sub(r"(?<=^przed)-(?=i)", "", w)
-    # w = re.sub(r"(?<=^rzy)-(?=a)", "", w)
     return w
 
 
